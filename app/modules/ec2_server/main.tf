@@ -150,12 +150,10 @@ resource "aws_instance" "this" {
 resource "aws_eip" "this" {
   instance = aws_instance.this.id
   domain   = "vpc"
-}
 
-resource "local_sensitive_file" "access_key_pair" {
-  filename        = "${path.root}/${var.service_name}-${var.env}-key-pair.pem"
-  content         = tls_private_key.this.private_key_pem
-  file_permission = "0400"
-
-  depends_on = [tls_private_key.this]
+  tags = {
+    Name : "${var.service_name}-${var.env}-eip"
+    Service : var.service_name
+    Env : var.env
+  }
 }
