@@ -49,7 +49,14 @@ variable "instance_private_ip" {
   default = "10.0.0.10"
 }
 
-# variable "user_data" {
-#   type    = string
-#   default = ""
-# }
+variable "iam_instance_profile_name" {
+  type     = string
+  nullable = true
+  default  = null
+}
+
+variable "user_data" {
+  type     = string
+  nullable = true
+  default  = null
+}
