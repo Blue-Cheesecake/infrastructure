@@ -49,7 +49,7 @@ variable "instance_private_ip" {
   default = "10.0.0.10"
 }
 
-variable "user_data" {
-  type    = string
-  default = ""
-}
+# variable "user_data" {
+#   type    = string
+#   default = ""
+# }

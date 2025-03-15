@@ -137,7 +137,7 @@ resource "aws_instance" "this" {
   subnet_id              = aws_subnet.this.id
   vpc_security_group_ids = [aws_security_group.this.id]
   private_ip             = var.instance_private_ip
-  user_data              = var.user_data
+  # user_data              = var.user_data
 
   tags = {
     Name : "${var.service_name}-${var.env}-instance"

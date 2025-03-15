@@ -1,4 +1,5 @@
-module "general-server-1" {
+module "general_server_1" {
   source       = "../../modules/ec2_server"
-  service_name = "personal-general-server-1"
+  service_name = "personal-gp-service-01"
+  #   user_data    = file("./files/setup-arm.sh")
 }
