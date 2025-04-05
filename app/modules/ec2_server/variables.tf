@@ -30,15 +30,6 @@ variable "aws_thailand_availability_zone_ids" {
   }
 }
 
-variable "aws_singapore_availability_zone_ids" {
-  type = map(string)
-  default = {
-    1 = "apse1-az1"
-    2 = "apse1-az2"
-    3 = "apse1-az3"
-  }
-}
-
 variable "aws_availability_zone_number" {
   type    = number
   default = 1
