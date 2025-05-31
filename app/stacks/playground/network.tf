@@ -1,23 +1,38 @@
 resource "aws_vpc" "this" {
-  cidr_block = "10.0.0.0/24"
+  cidr_block = "10.0.0.0/20"
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      Name : "${var.service_name}-vpc"
+    }
+  )
 
   enable_dns_hostnames = true
 }
 
 resource "aws_subnet" "subnet_a" {
   vpc_id               = aws_vpc.this.id
-  cidr_block           = "10.0.0.0/24"
+  cidr_block           = "10.0.1.0/24"
   availability_zone_id = "apse7-az1"
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      Name : "${var.service_name}-subnet-a"
+    }
+  )
 }
 
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.service_name}-internet-gateway"
+    }
+  )
 }
 
 resource "aws_route_table" "this" {
@@ -28,7 +43,12 @@ resource "aws_route_table" "this" {
     gateway_id = aws_internet_gateway.this.id
   }
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.service_name}-route-table"
+    }
+  )
 }
 
 resource "aws_route_table_association" "this" {
