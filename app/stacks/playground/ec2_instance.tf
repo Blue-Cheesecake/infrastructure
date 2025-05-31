@@ -9,8 +9,6 @@ resource "aws_launch_template" "this" {
 
   instance_type = "t4g.micro"
 
-  security_group_names = [aws_security_group.this.name]
-
   network_interfaces {
     associate_public_ip_address = true
 
