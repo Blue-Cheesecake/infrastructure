@@ -5,16 +5,6 @@ resource "aws_launch_template" "this" {
 
   image_id = "ami-09a78b9d8b4a58c6a" // Amazon Linux 2023
 
-  block_device_mappings {
-    device_name = "/dev/dsf"
-
-    ebs {
-      volume_size = 8
-      volume_type = "gp3"
-      iops        = "3000"
-    }
-  }
-
   key_name = aws_key_pair.this.key_name
 
   instance_type = "t4g.micro"
