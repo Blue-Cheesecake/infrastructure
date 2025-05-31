@@ -40,7 +40,24 @@ resource "aws_vpc_security_group_ingress_rule" "allow_http_ipv4" {
   )
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_all_ipv4" {
+// NOTE: should only include verified IP na.
+resource "aws_vpc_security_group_ingress_rule" "allow_all_ssh" {
+  security_group_id = aws_security_group.this.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "tcp"
+  from_port         = 22
+  to_port           = 22
+
+  description = "Allow all SSH traffic"
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.service_name}-allow-ssh-ingress"
+    }
+  )
+}
+
+resource "aws_vpc_security_group_egress_rule" "allow_all_ipv4" {
   security_group_id = aws_security_group.this.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
@@ -48,12 +65,12 @@ resource "aws_vpc_security_group_ingress_rule" "allow_all_ipv4" {
   tags = merge(
     var.tags,
     {
-      Name = "${var.service_name}-allow-all-ingress"
+      Name = "${var.service_name}-allow-all-egress"
     }
   )
 }
 
-resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv6" {
+resource "aws_vpc_security_group_egress_rule" "allow_all_ipv6" {
   security_group_id = aws_security_group.this.id
   cidr_ipv6         = "::/0"
   ip_protocol       = "-1"

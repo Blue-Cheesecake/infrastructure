@@ -24,6 +24,19 @@ resource "aws_subnet" "subnet_a" {
   )
 }
 
+resource "aws_subnet" "subnet_b" {
+  vpc_id               = aws_vpc.this.id
+  cidr_block           = "10.0.2.0/24"
+  availability_zone_id = "apse7-az2"
+
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.service_name}-subnet-b"
+    }
+  )
+}
+
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
 
@@ -51,7 +64,12 @@ resource "aws_route_table" "this" {
   )
 }
 
-resource "aws_route_table_association" "this" {
+resource "aws_route_table_association" "subnet_a" {
   route_table_id = aws_route_table.this.id
   subnet_id      = aws_subnet.subnet_a.id
+}
+
+resource "aws_route_table_association" "subnet_b" {
+  route_table_id = aws_route_table.this.id
+  subnet_id      = aws_subnet.subnet_b.id
 }

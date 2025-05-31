@@ -8,3 +8,7 @@ variable "tags" {
 variable "service_name" {
   default = "playground"
 }
+
+variable "ecs_cluster_name" {
+  default = "TODO_JAH"
+}

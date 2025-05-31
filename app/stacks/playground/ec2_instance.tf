@@ -1,9 +1,10 @@
 resource "aws_launch_template" "this" {
   name = "${title(var.service_name)}LaunchTemplate"
 
-  description = "Vanilla AMZ 2023"
+  description = "ECS Container Host"
 
-  image_id = "ami-09a78b9d8b4a58c6a" // Amazon Linux 2023
+  // Amazon Linux 2023 ECS Optimized (ARM64)
+  image_id = "ami-0061f8803c66054d2"
 
   key_name = aws_key_pair.this.key_name
 
@@ -13,6 +14,8 @@ resource "aws_launch_template" "this" {
     associate_public_ip_address = true
 
     subnet_id = aws_subnet.subnet_a.id
+
+    security_groups = [aws_security_group.this.id]
   }
 
   iam_instance_profile {
@@ -24,6 +27,11 @@ resource "aws_launch_template" "this" {
 
     tags = var.tags
   }
+
+  user_data = <<-EOF
+              #!/bin/bash
+              echo "ECS_CLUSTER=${var.ecs_cluster_name}" >> /etc/ecs/ecs.config
+              EOF
 
   tags = merge(
     var.tags,

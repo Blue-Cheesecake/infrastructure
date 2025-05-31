@@ -2,10 +2,22 @@ data "aws_iam_policy_document" "ec2_policy" {
   statement {
     effect = "Allow"
     actions = [
+      "ec2:DescribeTags",
+      "ecs:CreateCluster",
+      "ecs:DeregisterContainerInstance",
+      "ecs:DiscoverPollEndpoint",
+      "ecs:Poll",
+      "ecs:RegisterContainerInstance",
+      "ecs:StartTelemetrySession",
+      "ecs:UpdateContainerInstancesState",
+      "ecs:Submit*",
+      "ecs:TagResource",
       "ecr:GetAuthorizationToken",
-      "ecr:BatchGetImage",
+      "ecr:BatchCheckLayerAvailability",
       "ecr:GetDownloadUrlForLayer",
-      "ecr:BatchImportUpstreamImage"
+      "ecr:BatchGetImage",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
     ]
     resources = ["*"]
   }
