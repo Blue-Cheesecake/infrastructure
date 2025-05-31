@@ -19,7 +19,7 @@ resource "aws_subnet" "subnet_a" {
   tags = merge(
     var.tags,
     {
-      Name : "${var.service_name}-subnet-a"
+      Name = "${var.service_name}-subnet-a"
     }
   )
 }
