@@ -28,10 +28,11 @@ resource "aws_launch_template" "this" {
     tags = var.tags
   }
 
-  user_data = <<-EOF
+  user_data = base64encode(<<-EOF
               #!/bin/bash
-              echo "ECS_CLUSTER=${var.ecs_cluster_name}" >> /etc/ecs/ecs.config
+              echo "ECS_CLUSTER=${aws_ecs_cluster.this.name}" >> /etc/ecs/ecs.config
               EOF
+  )
 
   tags = merge(
     var.tags,

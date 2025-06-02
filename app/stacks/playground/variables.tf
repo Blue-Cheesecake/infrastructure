@@ -10,5 +10,5 @@ variable "service_name" {
 }
 
 variable "ecs_cluster_name" {
-  default = "TODO_JAH"
+  default = "playground-cluster"
 }
