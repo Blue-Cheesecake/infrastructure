@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "pzt_web" {
-  bucket = "purezentos-website-${var.env}"
+  bucket = "purezentos.com"
 
   force_destroy = true
 
